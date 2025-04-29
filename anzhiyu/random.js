@@ -1,3 +1,3 @@
-var posts=["2021/04/06/first/","2025/04/27/hello-world/","2025/04/27/second/"];function toRandomPost(){
+var posts=["2024/04/29/first_passage/","2025/04/29/hello-world/"];function toRandomPost(){
     pjax.loadUrl('/'+posts[Math.floor(Math.random() * posts.length)]);
   };
