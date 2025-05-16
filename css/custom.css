@@ -1,0 +1,26 @@
+/* 视频背景容器 */
+.home-banner {
+	position: fixed;
+	margin: 0;
+	padding: 0 !important;
+	top: 0;
+	left: 0;
+	width: 100vw !important;
+	height: 100vh;
+	z-index: -1;  /* 确保内容在视频上方 */
+	overflow: hidden;
+  }
+  
+  /* 视频元素样式 */
+.home-banner video {
+	object-fit: cover;
+	min-width: 100%;
+	min-height: 100%;
+}
+
+  /* 图片元素样式 */
+.home-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
