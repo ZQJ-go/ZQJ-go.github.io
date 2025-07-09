@@ -1,3 +1,3 @@
-var posts=["2025/06/07/C sharp 4/","2025/05/21/C sharp1/","2025/05/21/C sharp2/","2025/05/21/C sharp3/","2025/04/29/first_passage/","2025/05/04/game/","2025/05/06/github/","2025/05/04/gitone/","2025/04/20/hello-world/","2025/05/13/suanfa1/","2025/05/15/suanfa2/","2025/05/16/suanfa3/","2025/05/18/suanfa4/","2025/05/18/suanfa5/"];function toRandomPost(){
+var posts=["2025/05/21/C sharp1/","2025/05/21/C sharp2/","2025/05/21/C sharp3/","2025/06/07/C sharp4/","2025/07/09/C sharp5/","2025/04/29/first_passage/","2025/05/04/game/","2025/05/04/gitone/","2025/05/06/github/","2025/04/20/hello-world/","2025/05/13/suanfa1/","2025/05/15/suanfa2/","2025/05/16/suanfa3/","2025/05/18/suanfa4/","2025/05/18/suanfa5/"];function toRandomPost(){
     pjax.loadUrl('/'+posts[Math.floor(Math.random() * posts.length)]);
   };
