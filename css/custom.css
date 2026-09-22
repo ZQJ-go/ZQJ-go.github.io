@@ -25,6 +25,10 @@
   object-fit: cover;
 }
 @media (max-width: 768px) {
+    #page-header.full_page {
+        background-image: url('/images/home/hero-mobile.webp') !important;
+        background-attachment: scroll;
+    }
     .home-banner {
         display: none;
     }
