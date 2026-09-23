@@ -23472,7 +23472,7 @@ i.bber-gotobb {
 #nav-music {
   display: flex;
   align-items: center;
-  z-index: 9;
+  z-index: 12;
   position: fixed;
   bottom: 20px;
   left: 20px;
@@ -23486,6 +23486,17 @@ i.bber-gotobb {
 
 #nav-music:active {
   transform: scale(0.97);
+}
+
+#nav-music:not(:has(.aplayer)) {
+  min-width: 104px;
+  height: 41px;
+  background: var(--anzhiyu-main);
+}
+
+#nav-music:not(:has(.aplayer)) #nav-music-hoverTips {
+  position: relative;
+  opacity: 1;
 }
 
 #nav-music.playing {

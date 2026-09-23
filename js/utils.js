@@ -1047,6 +1047,7 @@ const anzhiyu = {
     if (!navMusic) return;
     navMusic.addEventListener("click", e => {
       const aplayerList = navMusic.querySelector(".aplayer-list");
+      if (!aplayerList) return;
       const listBtn = navMusic.querySelector(
         "div.aplayer-info > div.aplayer-controller > div.aplayer-time.aplayer-time-narrow > button.aplayer-icon.aplayer-icon-menu svg"
       );
