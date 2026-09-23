@@ -648,33 +648,36 @@ const anzhiyu = {
     const container = document.getElementById("nav-music");
     if (!container) return;
     if (!window.navMusicReady) {
-      let player = container.querySelector("meting-js");
-      if (!player) {
-        player = document.createElement("meting-js");
-        player.setAttribute("id", container.dataset.id);
-        player.setAttribute("server", container.dataset.server);
-        player.setAttribute("type", "playlist");
-        player.setAttribute("mutex", "true");
-        player.setAttribute("preload", "none");
-        player.setAttribute("theme", "var(--anzhiyu-main)");
-        player.setAttribute("data-lrctype", "0");
-        player.setAttribute("order", "random");
-        player.setAttribute("volume", container.dataset.volume);
-        container.appendChild(player);
-      }
       document.getElementById("nav-music-hoverTips").textContent = "音乐加载中…";
-      window.navMusicReady = new Promise((resolve, reject) => {
-        let attempts = 0;
-        const timer = setInterval(() => {
-          if (player.aplayer) {
-            clearInterval(timer);
-            resolve(player);
-          } else if (++attempts >= 200) {
-            clearInterval(timer);
-            reject(new Error("Music player timed out"));
-          }
-        }, 100);
-      });
+      window.navMusicReady = (async () => {
+        await window.loadMusicAssets();
+        let player = container.querySelector("meting-js");
+        if (!player) {
+          player = document.createElement("meting-js");
+          player.setAttribute("id", container.dataset.id);
+          player.setAttribute("server", container.dataset.server);
+          player.setAttribute("type", "playlist");
+          player.setAttribute("mutex", "true");
+          player.setAttribute("preload", "none");
+          player.setAttribute("theme", "var(--anzhiyu-main)");
+          player.setAttribute("data-lrctype", "0");
+          player.setAttribute("order", "random");
+          player.setAttribute("volume", container.dataset.volume);
+          container.appendChild(player);
+        }
+        return new Promise((resolve, reject) => {
+          let attempts = 0;
+          const timer = setInterval(() => {
+            if (player.aplayer) {
+              clearInterval(timer);
+              resolve(player);
+            } else if (++attempts >= 200) {
+              clearInterval(timer);
+              reject(new Error("Music player timed out"));
+            }
+          }, 100);
+        });
+      })();
     }
     try {
       await window.navMusicReady;
@@ -870,10 +873,8 @@ const anzhiyu = {
           anzhiyu.changeMusicBg();
 
           // 暂停nav的音乐
-          if (
-            document.querySelector("#nav-music meting-js").aplayer &&
-            !document.querySelector("#nav-music meting-js").aplayer.audio.paused
-          ) {
+          const navPlayer = document.querySelector("#nav-music meting-js")?.aplayer;
+          if (navPlayer && !navPlayer.audio.paused) {
             anzhiyu.musicToggle();
           }
         }
@@ -881,7 +882,7 @@ const anzhiyu = {
     }
   },
   // 获取自定义播放列表
-  getCustomPlayList: function () {
+  getCustomPlayList: async function () {
     if (!window.location.pathname.startsWith("/music/")) {
       return;
     }
@@ -889,6 +890,12 @@ const anzhiyu = {
     const userId = "8152976493";
     const userServer = "netease";
     const anMusicPageMeting = document.getElementById("anMusic-page-meting");
+    try {
+      await window.loadMusicAssets();
+    } catch (error) {
+      anMusicPageMeting.textContent = "音乐暂时不可用，请稍后重试";
+      return;
+    }
     if (urlParams.get("id") && urlParams.get("server")) {
       const id = urlParams.get("id");
       const server = urlParams.get("server");
