@@ -644,10 +644,51 @@ const anzhiyu = {
     return config[configKey];
   },
   //切换音乐播放状态
-  musicToggle: function (changePaly = true) {
+  musicToggle: async function (changePaly = true) {
+    const container = document.getElementById("nav-music");
+    if (!container) return;
+    if (!window.navMusicReady) {
+      let player = container.querySelector("meting-js");
+      if (!player) {
+        player = document.createElement("meting-js");
+        player.setAttribute("id", container.dataset.id);
+        player.setAttribute("server", container.dataset.server);
+        player.setAttribute("type", "playlist");
+        player.setAttribute("mutex", "true");
+        player.setAttribute("preload", "none");
+        player.setAttribute("theme", "var(--anzhiyu-main)");
+        player.setAttribute("data-lrctype", "0");
+        player.setAttribute("order", "random");
+        player.setAttribute("volume", container.dataset.volume);
+        container.appendChild(player);
+      }
+      document.getElementById("nav-music-hoverTips").textContent = "音乐加载中…";
+      window.navMusicReady = new Promise((resolve, reject) => {
+        let attempts = 0;
+        const timer = setInterval(() => {
+          if (player.aplayer) {
+            clearInterval(timer);
+            resolve(player);
+          } else if (++attempts >= 200) {
+            clearInterval(timer);
+            reject(new Error("Music player timed out"));
+          }
+        }, 100);
+      });
+    }
+    try {
+      await window.navMusicReady;
+      document.getElementById("nav-music-hoverTips").textContent = "播放器已就绪";
+    } catch (error) {
+      container.querySelector("meting-js")?.remove();
+      window.navMusicReady = null;
+      document.getElementById("nav-music-hoverTips").textContent = "音乐暂时不可用，点击重试";
+      return;
+    }
     if (!anzhiyu_musicFirst) {
       anzhiyu.musicBindEvent();
       anzhiyu_musicFirst = true;
+      document.dispatchEvent(new Event("nav-music-ready"));
     }
     let msgPlay = '<i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span>';
     let msgPause = '<i class="anzhiyufont anzhiyu-icon-pause"></i><span>暂停音乐</span>';

@@ -1449,9 +1449,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 监听nav是否被其他音频暂停⏸️
   const listenNavMusicPause = function () {
-    const timer = setInterval(() => {
-      if (navMusicEl && navMusicEl.querySelector("#nav-music meting-js").aplayer) {
-        clearInterval(timer);
+    const bindPlayer = () => {
+      if (navMusicEl && navMusicEl.querySelector("meting-js")?.aplayer) {
         let msgPlay = '<i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span>';
         let msgPause = '<i class="anzhiyufont anzhiyu-icon-pause"></i><span>暂停音乐</span>';
         navMusicEl.querySelector("#nav-music meting-js").aplayer.on("pause", function () {
@@ -1470,7 +1469,12 @@ document.addEventListener("DOMContentLoaded", function () {
           // navMusicEl.classList.add("stretch");
         });
       }
-    }, 16);
+    };
+    if (!navMusicEl?.querySelector("meting-js")?.aplayer) {
+      document.addEventListener("nav-music-ready", bindPlayer);
+    } else {
+      bindPlayer();
+    }
   };
 
   // 开发者工具键盘监听

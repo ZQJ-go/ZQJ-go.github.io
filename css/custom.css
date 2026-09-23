@@ -33,3 +33,18 @@
         display: none;
     }
 }
+#blog-weather-trigger {
+  border: 0;
+  border-radius: 20px;
+  background: var(--anzhiyu-card-bg, rgba(255, 255, 255, .85));
+  color: var(--anzhiyu-fontcolor, #333);
+  cursor: pointer;
+  padding: 4px 10px;
+  margin-left: 10px;
+}
+.card-widget.card-clock [data-local-clock] {
+  display: block;
+  padding: 6px 0;
+  font-size: 17px;
+  font-weight: 600;
+}
