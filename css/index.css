@@ -3083,6 +3083,37 @@ blockquote > :last-child {
   -ms-user-select: none;
   user-select: none;
 }
+#loading-box #loading-status {
+  position: absolute;
+  top: calc(50% + 92px);
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  width: 90vw;
+  text-align: center;
+  color: var(--anzhiyu-fontcolor);
+  line-height: 1.6;
+}
+#loading-box #loading-status[hidden] {
+  display: none;
+}
+#loading-box #loading-status p {
+  margin: 0 0 12px;
+}
+#loading-box #loading-status a {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: var(--anzhiyu-main);
+  color: #fff;
+  text-decoration: none;
+}
+#loading-box #loading-status a[hidden] {
+  display: none;
+}
 #loading-box .loading-img {
   width: 100px;
   height: 100px;
