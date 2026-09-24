@@ -24213,15 +24213,15 @@ a.categoryButton i {
 }
 
 a.categoryButton.blue {
-  background: linear-gradient(to right, #358bff, #15c6ff);
+  background: linear-gradient(110deg, #3288ff, #52b5ff);
   background-size: 200%;
 }
 a.categoryButton.red {
-  background: linear-gradient(to right, #f65, #ffbf37);
+  background: linear-gradient(110deg, #f46a47, #f5a53f);
   background-size: 200%;
 }
 a.categoryButton.green {
-  background: linear-gradient(to right, #18e7ae, #1eebeb);
+  background: linear-gradient(110deg, #16c6a1, #25d6ca);
   background-size: 200%;
 }
 
@@ -24257,15 +24257,15 @@ a.categoryButton:after {
 }
 
 [data-theme="dark"] a.categoryButton.blue {
-  background: linear-gradient(to right, #0653b8, #2fcbff);
+  background: linear-gradient(110deg, #3185f4, #40a9e8);
   background-size: 200%;
 }
 [data-theme="dark"] a.categoryButton.red {
-  background: linear-gradient(to right, #e22a16, #da980c);
+  background: linear-gradient(110deg, #f06b4d, #efa043);
   background-size: 200%;
 }
 [data-theme="dark"] a.categoryButton.green {
-  background: linear-gradient(to right, #099e74, #0ea4a4);
+  background: linear-gradient(110deg, #18b89c, #24c6bc);
   background-size: 200%;
 }
 
