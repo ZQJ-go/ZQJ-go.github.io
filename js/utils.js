@@ -592,6 +592,7 @@ const anzhiyu = {
     const waterfallEl = document.getElementById("waterfall");
     if (waterfallEl) {
       setTimeout(function () {
+        if (!waterfallEl.isConnected || typeof waterfall !== "function") return;
         waterfall(waterfallEl);
         waterfallEl.classList.add("show");
       }, 800);

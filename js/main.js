@@ -562,11 +562,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!scrollBottomFirstFlag && waterfallResult + 100 >= document.documentElement.clientHeight) {
           console.info(waterfallResult, document.documentElement.clientHeight);
           setTimeout(() => {
-            waterfall("#waterfall");
+            if (waterfallDom.isConnected && typeof waterfall === "function") waterfall(waterfallDom);
           }, 500);
         } else {
           setTimeout(() => {
-            waterfallDom && waterfall("#waterfall");
+            if (waterfallDom.isConnected && typeof waterfall === "function") waterfall(waterfallDom);
           }, 500);
         }
       }
