@@ -1,0 +1,230 @@
+/* The title keeps the existing typography, with an accessible hidden entrance. */
+#site-title .moon-mode-trigger {
+  display: inline;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  text-shadow: inherit;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+#site-title .moon-mode-trigger:focus-visible {
+  outline: 2px solid #c1d6ff;
+  outline-offset: 8px;
+}
+.moon-mode-quote[hidden] { display: none !important; }
+.moon-mode-quote {
+  position: absolute;
+  top: calc(100% + 22px);
+  left: 50%;
+  width: max-content;
+  max-width: calc(100vw - 40px);
+  color: #f1f0ff;
+  text-align: center;
+  text-shadow: 0 2px 16px #16183d;
+  font-size: 18px;
+  letter-spacing: .14em;
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: moon-quote 4.6s ease both;
+}
+.moon-mode-quote span { display: block; }
+.moon-mode-caption {
+  margin-bottom: 5px;
+  color: #bbd9ff;
+  font-size: 10px;
+  letter-spacing: .35em;
+}
+/* Override dynamic article colour variables only while the mode is enabled. */
+html[data-moon-mode='on'] {
+  color-scheme: dark;
+  --global-bg: #0e122a;
+  --font-color: #e8ebff;
+  --text-highlight-color: #f5f4ff;
+  --card-bg: #1b2344;
+  --sidebar-bg: #171e39;
+  --btn-bg: #8395ff;
+  --btn-color: #0d1330;
+  --btn-hover-color: #a9b8ff;
+  --text-bg-hover: #323d68;
+  --blockquote-bg: #252d50;
+  --blockquote-color: #d8deff;
+  --search-bg: #171e39;
+  --search-input-color: #ecedff;
+  --search-result-title: #bccbff;
+  --toc-link-color: #c2ceee;
+  --scrollbar-color: #7788c4;
+  --hr-border: #5b6796;
+  --preloader-bg: #11152d;
+  --anzhiyu-theme: #9eacff;
+  --anzhiyu-theme-op: #9eacff24;
+  --anzhiyu-theme-op-deep: #9eacff45;
+  --anzhiyu-theme-deep: #c2aaff;
+  --anzhiyu-main: #9eacff !important;
+  --anzhiyu-main-op: #9eacff24 !important;
+  --anzhiyu-main-op-deep: #9eacff45 !important;
+  --anzhiyu-fontcolor: #e8ebff;
+  --anzhiyu-background: #0e122a;
+  --anzhiyu-hovertext: #b9ccff;
+  --anzhiyu-lighttext: #c2b4ff;
+  --anzhiyu-secondtext: #bbc5e2;
+  --anzhiyu-card-bg: #1b2344;
+  --anzhiyu-card-border: #455485;
+  --anzhiyu-card-btn-bg: #303d66;
+  --anzhiyu-secondbg: #252e51;
+  --anzhiyu-post-blockquote-bg: #252d50;
+  --anzhiyu-post-tabs-bg: #171e39;
+  --anzhiyu-meta-theme-color: #11152d;
+  --anzhiyu-meta-theme-post-color: #11152d;
+  --anzhiyu-bar-background: #11152d !important;
+}
+html[data-moon-mode='on'] #web_bg {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: none;
+  background:
+    radial-gradient(circle at 81% 14%, #dce5ffbb 0, #9bbaff35 3%, transparent 17%),
+    radial-gradient(circle at 15% 28%, #9bd6ff9c 0 1px, transparent 2px),
+    radial-gradient(circle at 69% 8%, #efedffb3 0 1px, transparent 2px),
+    radial-gradient(circle at 46% 45%, #9bd6ff8c 0 1px, transparent 2px),
+    radial-gradient(ellipse at 18% 85%, #463c8755, transparent 58%),
+    linear-gradient(140deg, #0d1c37, #161631 60%, #241b45);
+}
+html[data-moon-mode='on'] #web_bg::before { background: transparent; }
+/* Moonlight blends with the existing hero photo, without loading another asset. */
+html[data-moon-mode='on'] #page-header.full_page::before {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  content: '';
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 83% 22%, #ca9bff26, transparent 40%),
+    linear-gradient(135deg, #293e6a33, #463c7052 56%, #18234870);
+  animation: moon-reveal .55s ease-out both;
+}
+html[data-moon-mode='on'] #site-info { z-index: 3; }
+html[data-moon-mode='on'] #site-title {
+  color: #f7f6ff;
+  text-shadow: 0 2px 20px #191332, 0 0 35px #aaa6ff65;
+}
+html[data-moon-mode='on'] #site-subtitle { color: #edf1ff; }
+html[data-moon-mode='on'] #nav.nav-fixed,
+html[data-moon-mode='on'] #page-header.nav-fixed #nav {
+  background: #151d39f5;
+}
+html[data-moon-mode='on'] #recent-posts .recent-post-item,
+html[data-moon-mode='on'] #aside-content .card-widget,
+html[data-moon-mode='on'] #post,
+html[data-moon-mode='on'] #page,
+html[data-moon-mode='on'] #archive {
+  box-shadow: 0 8px 28px #080d2629;
+}
+html[data-moon-mode='on'] #rightside > div > button {
+  background: #303d66;
+  color: #e8ebff;
+}
+@keyframes moon-reveal { from { opacity: 0; } to { opacity: 1; } }
+/* Return the arrival wave, then let the browser composite the restored page. */
+.moon-wake-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 10010;
+  overflow: hidden;
+  pointer-events: none;
+  background: transparent;
+}
+.moon-wake-veil::after {
+  content: '';
+  position: absolute;
+  top: 43%; left: 50%;
+  width: 140vmax; height: 140vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, #bccddd03 28%, #b1c9d926 35%, #9cb9ce1f 39%, transparent 46%);
+  animation: moon-wake-return .45s cubic-bezier(.35,.05,.55,1) both;
+  will-change: transform, opacity;
+}
+.moon-wake-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -998;
+  pointer-events: none;
+  animation: moon-wake-dissolve .55s .45s ease both;
+  will-change: opacity;
+}
+.moon-wake-hero-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 83% 22%, #ca9bff26, transparent 40%),
+    linear-gradient(135deg, #293e6a33, #463c7052 56%, #18234870);
+  animation: moon-wake-dissolve .55s .45s ease both;
+  will-change: opacity;
+}
+html[data-moon-wake-fallback] body,
+html[data-moon-wake-fallback] #post,
+html[data-moon-wake-fallback] #page,
+html[data-moon-wake-fallback] #recent-posts .recent-post-item {
+  transition: background-color .45s ease, color .45s ease;
+}
+html[data-moon-leaving] #page-header.full_page #site-info {
+  z-index: 4;
+}
+html[data-moon-leaving] .moon-scene {
+  animation: moon-wake-scene 1s ease both;
+  pointer-events: none;
+  will-change: opacity;
+}
+html[data-moon-leaving] .moon-dream-controls {
+  animation: moon-wake-dissolve .3s ease both;
+  pointer-events: none;
+}
+html[data-moon-leaving] .moon-sigil { pointer-events: none; }
+@keyframes moon-wake-dissolve { from { opacity: 1; } to { opacity: 0; } }
+@keyframes moon-wake-return {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+  22% { opacity: .75; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(.06); }
+}
+@keyframes moon-wake-scene { 0% { opacity: 1; } 45% { opacity: .45; } 100% { opacity: 0; } }
+html[data-moon-wake-view] { view-transition-name: moon-wake; }
+html[data-moon-wake-view]::view-transition-group(moon-wake) { animation: none; }
+html[data-moon-wake-view]::view-transition-image-pair(moon-wake) { isolation: isolate; }
+html[data-moon-wake-view]::view-transition-old(moon-wake) {
+  animation: none; opacity: 1; mix-blend-mode: normal;
+}
+html[data-moon-wake-view]::view-transition-new(moon-wake) {
+  animation: moon-wake-page .45s cubic-bezier(.25,.1,.25,1) both;
+  mix-blend-mode: normal;
+}
+@keyframes moon-wake-page { from { opacity: 0; } to { opacity: 1; } }
+@keyframes moon-quote {
+  0% { opacity: 0; transform: translate(-50%, 8px); }
+  12%, 80% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -4px); }
+}
+@media (max-width: 768px) {
+  .moon-mode-quote { font-size: 16px; }
+  html[data-moon-mode='on'] #page-header.full_page::before {
+    background:
+      radial-gradient(ellipse at 80% 20%, #ca9bff26, transparent 40%),
+      linear-gradient(135deg, #293e6a33, #463c7052 56%, #18234870);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .moon-wake-veil, .moon-wake-backdrop, .moon-wake-hero-tint { display: none; }
+  .moon-mode-quote,
+  html[data-moon-mode='on'] #page-header.full_page::before { animation: none; }
+}

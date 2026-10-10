@@ -1,0 +1,122 @@
+/* Local card feedback: no pointer loop, blur filter, or idle animation. */
+#recent-posts > .recent-post-item[data-card-interaction],
+.topGroup #todayCard[data-card-interaction] {
+  isolation: isolate;
+  transform-origin: center;
+  transition: transform 400ms cubic-bezier(.2, .75, .25, 1),
+    border-color 280ms ease, box-shadow 280ms ease;
+}
+
+.card-interaction-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: block;
+  border-radius: inherit;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 280ms ease;
+}
+
+.card-interaction-glow::before,
+.card-interaction-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.card-interaction-glow::before {
+  padding: 2px;
+  background: linear-gradient(125deg, #49b6ff, #7978ff 55%, #c878ff);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+
+.card-interaction-glow::after {
+  background: radial-gradient(ellipse at 8% 0%, rgba(73, 182, 255, .13), transparent 52%),
+    radial-gradient(ellipse at 95% 100%, rgba(167, 111, 255, .09), transparent 52%);
+}
+
+#recent-posts > .recent-post-item[data-card-interaction] .post_cover img.post_bg,
+.topGroup #todayCard[data-card-interaction] .todayCard-cover {
+  transition: transform 400ms cubic-bezier(.2, .75, .25, 1);
+}
+
+/* Keep the original links and visible focus outlines usable under the glow. */
+#recent-posts > .recent-post-item[data-card-interaction]:focus-within,
+.topGroup #todayCard[data-card-interaction]:focus-visible {
+  border-color: #8980ff;
+  box-shadow: 0 0 0 2px rgba(111, 132, 255, .4), 0 8px 24px rgba(87, 102, 229, .16) !important;
+}
+
+#recent-posts > .recent-post-item[data-card-interaction]:focus-within .card-interaction-glow,
+.topGroup #todayCard[data-card-interaction]:focus-visible .card-interaction-glow {
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #recent-posts > .recent-post-item[data-card-interaction]:hover,
+  .topGroup #todayCard[data-card-interaction]:hover {
+    transform: perspective(1400px) translateY(-4px) rotateX(1.2deg) rotateY(-1.6deg);
+    border-color: #8980ff;
+    box-shadow: 0 10px 28px rgba(64, 119, 234, .19), 0 2px 10px rgba(158, 99, 235, .15) !important;
+  }
+
+  #recent-posts > .recent-post-item[data-card-interaction]:hover .card-interaction-glow,
+  .topGroup #todayCard[data-card-interaction]:hover .card-interaction-glow {
+    opacity: 1;
+  }
+
+  #recent-posts > .recent-post-item[data-card-interaction]:hover .post_cover img.post_bg,
+  .topGroup #todayCard[data-card-interaction]:hover .todayCard-cover {
+    transform: scale(1.025) !important;
+  }
+}
+
+/* Override the theme's darkened cover, including sticky hover on touchscreens. */
+#recent-posts > .recent-post-item[data-card-interaction]:hover img.post_bg {
+  filter: none !important;
+}
+
+@media (hover: none), (pointer: coarse) {
+  #recent-posts > .recent-post-item[data-card-interaction]:active,
+  .topGroup #todayCard[data-card-interaction]:active {
+    transform: scale(.99);
+    transition-duration: 120ms;
+  }
+
+  #recent-posts > .recent-post-item[data-card-interaction]:hover .post_cover img.post_bg,
+  .topGroup #todayCard[data-card-interaction]:hover .todayCard-cover {
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #recent-posts > .recent-post-item[data-card-interaction],
+  .topGroup #todayCard[data-card-interaction],
+  #recent-posts > .recent-post-item[data-card-interaction]:hover,
+  .topGroup #todayCard[data-card-interaction]:hover,
+  #recent-posts > .recent-post-item[data-card-interaction]:active,
+  .topGroup #todayCard[data-card-interaction]:active {
+    transform: none;
+    animation: none;
+    transition: none;
+  }
+
+  #recent-posts > .recent-post-item[data-card-interaction] .post_cover img.post_bg,
+  .topGroup #todayCard[data-card-interaction] .todayCard-cover,
+  #recent-posts > .recent-post-item[data-card-interaction]:hover .post_cover img.post_bg,
+  .topGroup #todayCard[data-card-interaction]:hover .todayCard-cover {
+    transform: none !important;
+    transition: none;
+  }
+
+  .card-interaction-glow {
+    transition: none;
+  }
+}

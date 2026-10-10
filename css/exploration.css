@@ -1,0 +1,110 @@
+#rightside #exploration-toggle svg { display: block; margin: 8px auto; }
+
+#exploration-panel {
+  position: fixed;
+  top: auto;
+  left: auto;
+  right: 16px;
+  bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  width: 350px;
+  max-width: calc(100% - 32px);
+  max-height: calc(100vh - 110px);
+  max-height: min(76dvh, 640px);
+  margin: 0;
+  padding: 20px;
+  overflow: auto;
+  border: var(--style-border, 1px solid #dde5f0);
+  border-radius: 20px;
+  background: var(--anzhiyu-card-bg, #fff);
+  color: var(--anzhiyu-fontcolor, #303744);
+  box-shadow: 0 18px 48px rgba(12, 20, 42, .2);
+  font-size: 14px;
+}
+#exploration-panel::backdrop { background: rgba(14, 22, 42, .18); }
+.exploration-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.exploration-eyebrow { color: var(--anzhiyu-secondtext); font-size: 12px; }
+#exploration-title { margin: 2px 0 0; font-size: 21px; line-height: 1.5; }
+.exploration-close {
+  display: grid;
+  place-items: center;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--anzhiyu-secondbg, #f1f3f8);
+  color: inherit;
+  font: inherit;
+  font-size: 25px;
+  cursor: pointer;
+}
+.exploration-close:focus-visible { outline: 2px solid var(--anzhiyu-theme); outline-offset: 3px; }
+.exploration-progress { margin: 18px 0; color: var(--anzhiyu-secondtext); font-size: 12px; }
+.exploration-progress progress {
+  display: block;
+  width: 100%;
+  height: 5px;
+  margin-top: 8px;
+  border: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--anzhiyu-secondbg, #eef0f5);
+  accent-color: #8072ef;
+}
+.exploration-progress progress::-webkit-progress-bar { background: var(--anzhiyu-secondbg, #eef0f5); }
+.exploration-progress progress::-webkit-progress-value { background: linear-gradient(90deg, #5e9fff, #9873f4); }
+.exploration-progress progress::-moz-progress-bar { background: #8072ef; }
+#exploration-panel .exploration-badges { list-style: none; margin: 0; padding: 0; }
+.exploration-badges li { display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; }
+.exploration-badges li + li { border-top: 1px solid var(--anzhiyu-secondbg, #eef0f5); }
+.exploration-badge-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--anzhiyu-secondbg, #f1f3f8);
+  color: var(--anzhiyu-secondtext);
+  font-size: 24px;
+}
+.is-unlocked .exploration-badge-icon { background: rgba(130, 112, 235, .13); color: #8777ee; }
+.exploration-badge-copy { min-width: 0; }
+.exploration-badge-name { font-size: 15px; }
+#exploration-panel .exploration-badge-rule { margin: 4px 0; color: var(--anzhiyu-secondtext); font-size: 12px; line-height: 1.7; }
+.exploration-badge-state { color: var(--anzhiyu-secondtext); font-size: 11px; }
+.is-unlocked .exploration-badge-state { color: #8879df; }
+#exploration-panel .exploration-storage-note { margin: 14px 0 0; color: var(--anzhiyu-secondtext); font-size: 11px; line-height: 1.7; }
+
+#exploration-toast[hidden] { display: none !important; }
+#exploration-toast:not([hidden]) {
+  position: fixed;
+  top: calc(80px + env(safe-area-inset-top, 0px));
+  right: 20px;
+  z-index: 101;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: calc(100% - 40px);
+  padding: 12px 16px;
+  border: var(--style-border, 1px solid #dde5f0);
+  border-radius: 14px;
+  background: var(--anzhiyu-card-bg, #fff);
+  color: var(--anzhiyu-fontcolor, #303744);
+  box-shadow: 0 8px 28px rgba(12, 20, 42, .12);
+  font-size: 13px;
+  line-height: 1.6;
+  pointer-events: none;
+  animation: exploration-arrive 180ms ease-out both;
+}
+.exploration-toast-icon { color: #8874ed; font-size: 24px; }
+@keyframes exploration-arrive {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+@media (max-width: 480px) {
+  #exploration-panel { padding: 16px; }
+  #exploration-toast:not([hidden]) { top: calc(70px + env(safe-area-inset-top, 0px)); right: 16px; max-width: calc(100% - 32px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #exploration-toast:not([hidden]) { animation: none; }
+}

@@ -44,6 +44,7 @@
         showFailure(trigger);
       }
     }, reduced ? 80 : 2200);
+    document.dispatchEvent(new CustomEvent('blog:kamui-start'));
   });
 
   // A queued effect must never jump again after the visitor leaves its page.

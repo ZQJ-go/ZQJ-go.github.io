@@ -1,0 +1,146 @@
+/* Preserve the icon wall, expose real links and pause it for reading. */
+#random-banner #skills-tags-group-all .tags-group-wrapper,
+.skills #skills-tags-group-all .tags-group-wrapper {
+  animation-duration: 50s;
+}
+
+#skills-tags-group-all:focus-within .tags-group-wrapper,
+#skills-tags-group-all:hover .tags-group-wrapper,
+#random-banner:hover .tags-group-wrapper,
+#random-banner:focus-within .tags-group-wrapper {
+  animation-play-state: paused;
+}
+
+#skills-tags-group-all .skill-entry-link {
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#skills-tags-group-all .skill-entry-link img { transition: transform 180ms ease; }
+
+@media (hover: hover) and (pointer: fine) {
+  #skills-tags-group-all .skill-entry-link:hover img { transform: scale(1.08); }
+}
+
+.skill-entry-link:focus-visible,
+.skill-mobile-entry:focus-visible {
+  outline: 3px solid var(--anzhiyu-theme);
+  outline-offset: 4px;
+}
+
+#random-banner .banners-title { pointer-events: none; z-index: 1; }
+
+#random-banner .skill-entry-summary {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  min-height: 54px;
+  padding: 16px 18px 10px;
+  background: linear-gradient(transparent, var(--anzhiyu-card-bg) 35%);
+  color: var(--anzhiyu-fontcolor);
+  font-size: 12px;
+  line-height: 1.6;
+  pointer-events: none;
+}
+
+.skill-entry-default { color: var(--anzhiyu-secondtext); }
+.skill-entry-introduction { display: none; }
+
+#random-banner:has(.skill-entry-link:is(:hover, :focus-visible)) .skill-entry-default { display: none; }
+#random-banner:has([data-skill-key="unity"]:is(:hover, :focus-visible)) [data-summary-for="unity"],
+#random-banner:has([data-skill-key="cocos"]:is(:hover, :focus-visible)) [data-summary-for="cocos"],
+#random-banner:has([data-skill-key="csharp"]:is(:hover, :focus-visible)) [data-summary-for="csharp"] { display: inline; }
+
+/* A focused link remains visible even when its original scrolling copy was clipped. */
+#random-banner #skills-tags-group-all:focus-within {
+  transform: none;
+  margin-top: 126px;
+  justify-content: center;
+}
+#random-banner #skills-tags-group-all:focus-within .tags-group-wrapper {
+  animation: none;
+  transform: none;
+  margin-top: 0;
+  gap: 12px;
+}
+#random-banner #skills-tags-group-all:focus-within .tags-group-icon-pair { display: contents; }
+#random-banner #skills-tags-group-all:focus-within [data-skill-copy="1"],
+#random-banner #skills-tags-group-all:focus-within .tags-group-icon:not(.skill-entry-link) { display: none; }
+#random-banner #skills-tags-group-all:focus-within .skill-entry-link {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  margin: 0;
+  transform: none;
+}
+#random-banner #skills-tags-group-all:focus-within .skill-entry-link img { width: 36px; height: 36px; }
+
+/* About already has a compact list; make that list accessible by keyboard and touch. */
+.skills .skills-list { pointer-events: none; }
+.skills:hover .skills-list,
+.skills:focus-within .skills-list { pointer-events: auto; opacity: 1; }
+.skills:focus-within .skills-style-group #skills-tags-group-all { opacity: 0; }
+.skills .skill-info[href] { color: var(--anzhiyu-fontcolor); text-decoration: none; }
+.skills .skill-info[href]:hover { border-color: var(--anzhiyu-theme); }
+.skills .skill-name { display: flex; flex-direction: column; }
+.skills .skill-entry-intro {
+  display: block;
+  max-width: 230px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  color: var(--anzhiyu-secondtext);
+  font-size: 12px;
+  line-height: 1.5;
+  transition: max-height 180ms ease, opacity 180ms ease;
+}
+.skills .skill-info:is(:hover, :focus-visible) .skill-entry-intro { max-height: 54px; opacity: 1; }
+
+/* The theme hides the full wall below 1200px, so use the same icons as compact links. */
+.skill-mobile-entries { display: none; }
+@media (max-width: 1200px) {
+  .skill-mobile-entries {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0 0 12px;
+  }
+  .skill-mobile-entry {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    border-radius: 12px;
+    background: var(--anzhiyu-card-bg);
+    color: var(--anzhiyu-fontcolor);
+    font-size: 14px;
+    text-decoration: none;
+  }
+  .skill-mobile-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+  }
+  .skill-mobile-icon img { width: 24px; height: 24px; margin: 0; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .skills .skills-style-group #skills-tags-group-all { display: none; }
+  .skills .skills-list { position: relative; opacity: 1; pointer-events: auto; }
+  .skills .skill-entry-intro { max-height: 54px; opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #skills-tags-group-all .tags-group-wrapper { animation: none; }
+  #skills-tags-group-all,
+  #skills-tags-group-all .skill-entry-link img,
+  .skills .skill-entry-intro,
+  .skills .skills-list { transition: none; }
+}
