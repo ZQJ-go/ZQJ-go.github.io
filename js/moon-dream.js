@@ -92,12 +92,18 @@
     status.textContent = dream ? '正在展开' + dreams[dream] + '…' : '正在寻找一段记忆…';
     try {
       if (!cache) {
-        controller = new AbortController();
-        const signal = controller.signal;
-        requestTimer = window.setTimeout(() => controller?.abort(), 6000);
-        const response = await window.fetch(current.dataset.moonIndex, { signal, cache: 'no-cache' });
-        if (!response.ok) throw new Error('request');
-        const data = await response.json();
+        const inline = current.querySelector('[data-moon-index-inline]');
+        let data;
+        if (inline) {
+          data = JSON.parse(inline.textContent);
+        } else {
+          controller = new AbortController();
+          const signal = controller.signal;
+          requestTimer = window.setTimeout(() => controller?.abort(), 6000);
+          const response = await window.fetch(current.dataset.moonIndex, { signal, cache: 'no-cache' });
+          if (!response.ok) throw new Error('request');
+          data = await response.json();
+        }
         if (token !== generation || !active() || controls !== current || !current.isConnected) return;
         cache = core.cleanPosts(data, window.location.origin);
       }
